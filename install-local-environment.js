@@ -56,7 +56,7 @@ async function init() {
     await compose.run(
         'wordpress-cli',
         /* specify the technical names (text domain) of plugins to be installed */
-        'wp plugin install updraftplus --activate',
+        'wp plugin install eps-301-redirects advanced-custom-fields block-manager complianz-gpdr-premium plugin=error-log-viewer matomo polylang simple-custom-post-order user-role-editor wp-rocket wp-typography wordpress-seo --activate',
         { cwd: path.join(__dirname), commandOptions: ['--rm'] })
         .then(
         () => { console.log('Installed remote plugins')},
