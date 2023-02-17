@@ -79,7 +79,7 @@ to remove the installation.
 
 ## Development
 
-For an optional WordPress theme / plugin development base / template, use the downstream version which adds linting etc. 
+Use [wp_template](https://github.com/openmindculture/wp_template) as a WordPress (child) theme / plugin development base / template. It has been forked as a downstream repository of `wp_cli` and adds linting, SCSS build and watcher, and theme export functionality etc. 
 
 Note: `eslint` is configured to honor WordPress theme / plugin development style guides. It does _not_ check the installation script `install-local-environment.js` which should be checked used the `eslint-recommended` rules instead.
 
