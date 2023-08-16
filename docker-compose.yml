@@ -29,9 +29,10 @@ services:
       WORDPRESS_TABLE_PREFIX: "wp_"
       WORDPRESS_DEBUG: 1
       UPLOAD_LIMIT: 64M
-    # shared volume
+    # shared volumes
     volumes:
-      - wp_data:/var/www/html
+      - "./wp_data:/var/www/html"
+      - "./themes:/var/www/html/wp-content/themes:rw"
       # increase allowed upload file size so that we can import shop data:
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
       # uncomment/modify the following line to plugin code available for local search/debugging:
@@ -60,7 +61,8 @@ services:
     user: xfs
     # shared volume
     volumes:
-      - wp_data:/var/www/html
+      - "./wp_data:/var/www/html"
+      - "./themes:/var/www/html/wp-content/themes:rw"
 
 volumes:
   db_data:
