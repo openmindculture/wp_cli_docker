@@ -16,7 +16,9 @@ The installation script needs more refactoring to guarantee that it runs fail-sa
 
 You can open http://localhost:8000/wp-admin and check the dashboard, health status, additional information provided by the incompatibility status plugin, and add more plugins, themes, and content.
 
-You can use the [WordPress content import/export tool](https://learn.wordpress.org/tutorial/tools-import-and-export/) to add content from other existing WordPress sites.
+You can use the [WordPress content import/export tool](https://learn.wordpress.org/tutorial/tools-import-and-export/) to add content from other existing WordPress sites
+or a third-party plugin like [UpdraftPlus](https://wordpress.org/plugins/updraftplus/) that might make it easier
+to transfer data selectively including purchased plugins and the media library.
 
 ## Requirements
 

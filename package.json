@@ -1,27 +1,25 @@
 {
   "name": "wp_cli_docker",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Docker setup for local WordPress development",
   "scripts": {
     "start": "docker-compose restart",
     "install": "node install-local-environment.js",
     "postinstall": "docker image prune -f",
     "stop": "docker-compose stop",
     "destroy": "docker-compose down -v",
-    "eslint": "eslint --ext .js src"
+    "stylelint": "stylelint src/**/_*.css"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Ingo Steinke (@openmindculture)",
+  "license": "proprietary",
   "dependencies": {
-    "cssnano": "^5.1.11",
-    "docker-compose": "^0.23.17",
-    "make-dir-cli": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "path": "^0.12.7",
-    "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@wordpress/eslint-plugin": "^13.10.0",
-    "eslint": "^8.34.0"
+    "docker-compose": "^0.24.8",
+    "eslint": "^9.6.0",
+    "make-dir-cli": "^4.0.0",
+    "path": "^0.12.7",
+    "postcss-cli": "^11.0.0",
+    "stylelint": "^16.6.1"
   }
 }

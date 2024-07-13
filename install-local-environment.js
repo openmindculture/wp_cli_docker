@@ -4,7 +4,7 @@ const fs = require('fs');
 const { setTimeout } = require('timers/promises')
 
 async function init() {
-   log ('Starting installation of local environment.');
+    log ('Starting installation of local environment.');
 
     await downloadDockerImage().then(async () => {
         await startServerAndDbContainer().then(async () => {
@@ -15,19 +15,7 @@ async function init() {
                 await installPlugins().then(async () => {
                     await installThemes().then(async () => {
                         await installAddonsAndCleanup().then(async () => {
-                            log('Finished installing WordPress on localhost. Looking for content to import...')
-                            if (fs.existsSync('./content.xml')) {
-                                compose.run(
-                                    'wordpress-cli',
-                                    'wp import ./content.xml --authors=create',
-                                    { cwd: path.join(__dirname), commandOptions: ['--rm'] })
-                                    .then(
-                                        () => { log('Content import finished successfully.')},
-                                        err => { console.error('Content import failed:', err)}
-                                    );
-                            } else {
-                                console.error('Missing content import file (content.xml).');
-                            }
+                            log('Finished installing WordPress on localhost.')
                         });
                     });
                 });
@@ -46,7 +34,7 @@ function log (msg, reverseColor= true) {
 }
 
 async function downloadDockerImage() {
-    log('Dowloading WordPress docker image...');
+    log('Downloading WordPress docker image...');
     return await compose.pullAll({ cwd: path.join(__dirname), log: true});
 }
 
@@ -58,26 +46,10 @@ async function installCore() {
     log('Installing and configuring Wordpress core and admin...');
     return await compose.run(
         'wordpress-cli',
-        'wp core install --path=/var/www/html --url=http://localhost:8000" --title=TestSetup --admin_user=admin --admin_password=secret --admin_email=foo@bar.com',
+        'wp core install --path=/var/www/html --url=http://localhost:8000" --title=localWP --admin_user=admin --admin_password=secret --admin_email=foo@bar.com',
         { cwd: path.join(__dirname), commandOptions: ['--rm'] })
 }
-async function installPlugins() {
-    log('Installing WordPress plugins...');
-    return await compose.run(
-        'wordpress-cli',
-        /* specify the technical names (text domain) of plugins to be installed */
-        'wp plugin install --activate updraftplus',
-        { cwd: path.join(__dirname), commandOptions: ['--rm'] });
-}
 
-async function installThemes() {
-    log('Installing and activating WordPress themes...');
-    /*  add and activate (child) themes for your project here: */
-    await compose.run(
-        'wordpress-cli',
-        'wp theme install --activate twentytwentythree',
-        { cwd: path.join(__dirname), commandOptions: ['--rm'] });
-}
 async function installAddonsAndCleanup() {
     log('Installing additional components and cleaning up...');
     await compose.run(
@@ -104,16 +76,16 @@ async function installAddonsAndCleanup() {
         { cwd: path.join(__dirname), commandOptions: ['--rm'] })
         .then(
             () => { log('Installed theme languages')},
-            err => { console.error('something went wrong:', err)}
+            err => { console.error('Installing theme languages went wrong:', err)}
         );
 
     await compose.run(
         'wordpress-cli',
-        'wp theme delete twentytwentytwo twentytwentyone twentytwenty twentynineteen twentyseventeen twentysixteen twentyfifteen twentyfourteen twentythirteen twentytwelve twentyeleven twentyten',
+        'wp theme delete twentytwentythree twentytwentytwo twentytwentyone twentytwenty twentynineteen twentyseventeen twentysixteen twentyfifteen twentyfourteen twentythirteen twentytwelve twentyeleven twentyten',
         { cwd: path.join(__dirname), commandOptions: ['--rm'] })
         .then(
-            () => { log('Deleted unnsecessary themes')},
-            err => { console.error('something went wrong:', err)}
+            () => { log('Deleted unnecessary themes')},
+            err => { console.error('Deleting unnecessary themes went wrong:', err)}
         );
 
     compose.run(
@@ -121,8 +93,16 @@ async function installAddonsAndCleanup() {
         'wp plugin delete akismet hello',
         { cwd: path.join(__dirname), commandOptions: ['--rm'] })
         .then(
-            () => { log('Deleted unnsecessary plugins')},
-            err => { console.error('something went wrong:', err)}
+            () => { log('Deleted unnecessary plugins')},
+            err => {console.error('Deleting unnecessary went wrong:', err)}
+        );
+
+    compose.run(
+        'wordpress-cli',
+        'wp option update show_avatars 0',
+        { cwd: path.join(__dirname), commandOptions: ['--rm'] })
+        .then(
+            () => { log('Disabled Avatars')},
+            err => { console.error('Disabled avatars went wrong:', err)}
         );
 }
-
