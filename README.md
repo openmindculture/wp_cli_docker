@@ -2,7 +2,7 @@
 
 [wp_cli_docker](https://github.com/openmindculture/wp_cli_docker) is a simple local host WordPress setup using Docker, docker-compose, and wp-cli to install themes and plugins, in order to quickly evaluate and ensure compatibility of a certain setup of components and software versions.
 
-⚠️ This repository is not actively maintained anymore! Please see [](https://github.com/openmindculture/wp-impact-theme/) for a more up-to-date template! ⚠️
+⚠️ This repository is not actively maintained anymore! Please consider [`openmindculture/wp-impact-theme`](https://github.com/openmindculture/wp-impact-theme/) as a more up-to-date template! ⚠️
 
 ## Introduction
 
